@@ -1,0 +1,61 @@
+DROL Documentation - 11/23/2016
+Written by Bradley Sadowsky, MIT License <bradley.sadowsky@gmail.com>
+
+i = Increment register one by 1
+k = Increment register two by 1
+d = Decrement register one by 1
+e = Decrement register two by 1
+o = Display register one
+p = Display register two
+a = Display register one to the screen IF REGISTER ONE IS ASCII (0-255)
+b = Display register two to the screen IF REGISTER ONE IS ASCII (0-255)
+! = Display newline
+n = Set register one to user inputted number
+q = Set register two to user inputted number
+z = Set register one to zero
+y = Set register two to zero
+1 = Set both registers to the contents of register one
+2 = Set both registers to the contents of register two
+s = Set register one to the sum of the registers
+u = Set register two to the sum of the registers
+f = Set register one to the difference of the registers (r1 = r1 - r2)
+g = Set register two to the difference of the registers (r2 = r1 - r2)
+m = Set register one to the product of the registers
+r = Set register two to the product of the registers
+e = Set register one to register one squared
+h = Set register two to register two squared
+j = Tests if the registers are equal; If not equal, the program exits
+* = Swaps register one and register two
+< = Left shift register one by one
+, = Left shift register two by one
+> = Right shift register one by one
+. = Right shift register two by one
+~ = Flip bits in register one
+` = Flip bits in register two
+^ = XOR register one to register two (r1 = r1 ^ r2)
+6 = XOR register two to register one (r2 = r1 ^ r2)
+| = OR register one to register two (r1 = r1 | r2)
+\ = OR register two to register one (r2 = r1 | r2)
+& = AND register one to register two (r1 = r1 & r2)
+7 = AND register two to register one (r1 = r1 & r2)
+
+Description:
+	DROL (Double Register Optimization Language) is a virtual register language, and acts by simulating two virtual registers (which are in reality just integers of the `long' C type). The DROL compiler calls GCC by default to compile the C source. If GCC is not present or aliased on your machine, use the `-c' flag  and then compile with the C compiler of your choice.
+
+CLI Flags:
+	-c : Compile into C source file named `a.c', but not into executable.
+
+Explanation:
+	DROL is a double virtual register language, and as such, contains two "registers" (integers of the `long' C type) that can be manipulated using different single-character commands. Each register has its own distinct set of commands.
+
+Notable Commands:
+	Some notable commands are:
+i,k - Increment
+d,e - Decrement
+o,p - Display number
+a,b - Display character
+n,q - Set register to user input
+z,y - Set register to zero
+* - Swap the contents of the registers
+j - Test if registers are equal, if unequal, exit program
+! - Display newline
