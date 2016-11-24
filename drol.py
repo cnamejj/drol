@@ -177,19 +177,23 @@ def compile(drolstr, outfile): # Compile DROL code into C code
             code = '\tif (regone == regtwo) {\n\t\t' + lookup(drolstr[location + 1]) + lookup(drolstr[location + 2]) + '\n\t} else {\n\t\t' + lookup(drolstr[location + 3]) + lookup(drolstr[location + 4]) + '\n\t}\n'
             outfile.write(code)
             location = location + 5
-            drolitr.next()
-            drolitr.next()
-            drolitr.next()
-            drolitr.next()
-            drolitr.next()
+            try:
+                drolitr.next()
+                drolitr.next()
+                drolitr.next()
+                drolitr.next()
+            except StopIteration:
+                pass
         elif char == "w": # While the registers are not equal, the next command is executed
             code = '\twhile (regone != regtwo) {\n\t\t' + lookup(drolstr[location + 1]) + lookup(drolstr[location + 2]) + lookup(drolstr[location + 3]) + '\n\t}\n'
             outfile.write(code)
             location = location + 4
-            drolitr.next()
-            drolitr.next()
-            drolitr.next()
-            drolitr.next()
+            try:
+                drolitr.next()
+                drolitr.next()
+                drolitr.next()
+            except StopIteration:
+                pass
         else:
             outfile.write(lookup(char))
             location = location + 1
