@@ -60,7 +60,7 @@ def compile(drolstr, outfile): # Compile DROL code into C code
         # Set register two to the product of the registers
         r = '\tregtwo = regone * regtwo;\n'
         # Set register one to register one squared
-        e = '\tregone = regone * regone;\n'
+        l = '\tregone = regone * regone;\n'
         # Set register two to register two squared
         h = '\tregtwo = regtwo * regtwo;\n'
         # Swaps register one and register two
@@ -136,8 +136,8 @@ def compile(drolstr, outfile): # Compile DROL code into C code
             return m
         elif char == "r":
             return r
-        elif char == "e":
-            return e
+        elif char == "l":
+            return l
         elif char == "h":
             return h
         elif char == "*":
