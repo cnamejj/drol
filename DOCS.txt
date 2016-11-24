@@ -26,7 +26,8 @@ m = Set register one to the product of the registers
 r = Set register two to the product of the registers
 e = Set register one to register one squared
 h = Set register two to register two squared
-j = Tests if the registers are equal; If not equal, the program exits
+j = Tests if the registers are equal; If equal, the next command is executed; If not, the next command is skipped
+w = While the registers are not equal, the next command is executed
 * = Swaps register one and register two
 < = Left shift register one by one
 , = Left shift register two by one
@@ -63,3 +64,7 @@ j - Test if registers are equal, if unequal, exit program
 ! - Display newline
 0 - Do nothing
 x - Exit program successfully
+
+Common pitfalls:
+	1. Both the command immediately after `j' and `w' cannot be `j' or `w'.
+	2. The `!' command exists for a reason: use it! (Don't set your registers to 10 to display a newline)
