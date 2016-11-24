@@ -24,7 +24,7 @@ def compile(drolstr, outfile): # Compile DROL code into C code
         # Decrement register one by 1
         d = '\tregone = regone - 1;\n'
         # Decrement register two by 1
-        e = '\tregwto = regtwo - 1;\n'
+        e = '\tregtwo = regtwo - 1;\n'
         # Display register one to the screen
         o = '\tprintf("%d", regone);\n'
         # Display register two to the screen
