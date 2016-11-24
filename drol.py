@@ -2,7 +2,7 @@
 #file: drol.py
 #By: Bradley Sadowsky, MIT License <bradley.sadowsky@gmail.com>
 #11/23/2016
-#Current Version: 1.0
+#Current Version: 1.1
 #Updated on 11/23/16
 #Double Register Optimization Language (DROL) - Compiler
 from sys import argv
