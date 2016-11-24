@@ -2,7 +2,7 @@
 #file: drol.py
 #By: Bradley Sadowsky, MIT License <bradley.sadowsky@gmail.com>
 #11/23/2016
-#Current Version: 1.3
+#Current Version: 1.4
 #Updated on 11/24/16
 #Double Register Optimization Language (DROL) - Compiler
 from sys import argv
@@ -174,18 +174,22 @@ def compile(drolstr, outfile): # Compile DROL code into C code
     location = 0
     for char in drolitr:
         if char == "j": # If registers are equal execute next command, else skip
-            code = '\tif (regone == regtwo) {\n\t\t' + lookup(drolstr[location + 1]) + '\n\t} else {\n\t\t' + lookup(drolstr[location + 2]) + '\n\t}\n'
+            code = '\tif (regone == regtwo) {\n\t\t' + lookup(drolstr[location + 1]) + lookup(drolstr[location + 2]) + '\n\t} else {\n\t\t' + lookup(drolstr[location + 3]) + lookup(drolstr[location + 4]) + '\n\t}\n'
             outfile.write(code)
-            location = location + 3
+            location = location + 5
+            drolitr.next()
+            drolitr.next()
+            drolitr.next()
             drolitr.next()
             drolitr.next()
         elif char == "w": # While the registers are not equal, the next command is executed
             code = '\twhile (regone != regtwo) {\n\t\t' + lookup(drolstr[location + 1]) + lookup(drolstr[location + 2]) + lookup(drolstr[location + 3]) + '\n\t}\n'
             outfile.write(code)
-            location = location + 3
+            location = location + 4
             drolitr.next()
             drolitr.next()
             drolitr.next()
+            dorlitr.next()
         else:
             outfile.write(lookup(char))
             location = location + 1
