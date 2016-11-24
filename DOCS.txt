@@ -1,4 +1,4 @@
-DROL Documentation - 11/23/2016
+DROL Documentation - 11/23/2016 (Updated: 11/24/16)
 Written by Bradley Sadowsky, MIT License <bradley.sadowsky@gmail.com>
 
 x = Exit program successfully
@@ -26,8 +26,8 @@ m = Set register one to the product of the registers
 r = Set register two to the product of the registers
 e = Set register one to register one squared
 h = Set register two to register two squared
-j = Tests if the registers are equal; If equal, the next command is executed; If not, the next command is skipped
-w = While the registers are not equal, the next command is executed
+j = Tests if the registers are equal; If equal, the next command is executed; If not, the next command after that is executed
+w = While the registers are not equal, the next three commands are executed
 * = Swaps register one and register two
 < = Left shift register one by one
 , = Left shift register two by one
@@ -43,7 +43,11 @@ w = While the registers are not equal, the next command is executed
 7 = AND register two to register one (r1 = r1 & r2)
 
 Description:
-	DROL (Double Register Optimization Language) is a virtual register language, and acts by simulating two virtual registers (which are in reality just integers of the `int' C type). The DROL compiler calls GCC by default to compile the C source. If GCC is not present or aliased on your machine, use the `-c' flag  and then compile with the C compiler of your choice.
+	DROL (Double Register Optimization Language) is a virtual register language, and acts by 
+simulating two virtual registers (which are in reality just integers of the `int' C type). The DROL 
+compiler calls GCC by default to compile the C source. If GCC is not present or aliased on your 
+machine, use the `-c' flag  and then compile with the C compiler of your choice. It is standard 
+practice to name DROL source files with the `.drol' extension.
 
 CLI Flags:
 	-c : Compile into C source file named `a.c', but not into executable.
@@ -60,12 +64,13 @@ a,b - Display character
 n,q - Set register to user input
 z,y - Set register to zero
 * - Swap the contents of the registers
-j - If the registers are equal execute the next command
-w - While the registers are inequal execute the next command
+j - If the registers are equal execute the next command, if not execute the command after that one
+w - While the registers are inequal execute the next three commands (in a loop)
 ! - Display newline
 0 - Do nothing
 x - Exit program successfully
 
 Common pitfalls:
-	1. Both the command immediately after `j' and `w' cannot be `j' or `w'.
-	2. The `!' command exists for a reason: use it! (Don't set your registers to 10 to display a newline)
+	1. Both the two/three (respectively) commands immediately after `j' and `w' cannot be `j' or `w'.
+	2. The two commands after `j' are reserved. Similarly, the three commands after `w' are reserved.
+	3. The `!' command exists for a reason: use it! (Why set your registers to 10 to display a newline when you don't have to?)
