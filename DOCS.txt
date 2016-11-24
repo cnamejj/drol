@@ -1,6 +1,8 @@
 DROL Documentation - 11/23/2016
 Written by Bradley Sadowsky, MIT License <bradley.sadowsky@gmail.com>
 
+x = Exit program successfully
+0 = Do nothing
 i = Increment register one by 1
 k = Increment register two by 1
 d = Decrement register one by 1
@@ -40,13 +42,13 @@ j = Tests if the registers are equal; If not equal, the program exits
 7 = AND register two to register one (r1 = r1 & r2)
 
 Description:
-	DROL (Double Register Optimization Language) is a virtual register language, and acts by simulating two virtual registers (which are in reality just integers of the `long' C type). The DROL compiler calls GCC by default to compile the C source. If GCC is not present or aliased on your machine, use the `-c' flag  and then compile with the C compiler of your choice.
+	DROL (Double Register Optimization Language) is a virtual register language, and acts by simulating two virtual registers (which are in reality just integers of the `int' C type). The DROL compiler calls GCC by default to compile the C source. If GCC is not present or aliased on your machine, use the `-c' flag  and then compile with the C compiler of your choice.
 
 CLI Flags:
 	-c : Compile into C source file named `a.c', but not into executable.
 
 Explanation:
-	DROL is a double virtual register language, and as such, contains two "registers" (integers of the `long' C type) that can be manipulated using different single-character commands. Each register has its own distinct set of commands.
+	DROL is a double virtual register language, and as such, contains two "registers" (integers of the `int' C type) that can be manipulated using different single-character commands. Each register has its own distinct set of commands.
 
 Notable Commands:
 	Some notable commands are:
@@ -59,3 +61,5 @@ z,y - Set register to zero
 * - Swap the contents of the registers
 j - Test if registers are equal, if unequal, exit program
 ! - Display newline
+0 - Do nothing
+x - Exit program successfully
