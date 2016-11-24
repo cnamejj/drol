@@ -2,7 +2,7 @@
 #file: drol.py
 #By: Bradley Sadowsky, MIT License <bradley.sadowsky@gmail.com>
 #11/23/2016
-#Current Version: 1.2
+#Current Version: 1.3
 #Updated on 11/24/16
 #Double Register Optimization Language (DROL) - Compiler
 from sys import argv
@@ -11,7 +11,7 @@ argl = len(argv)
 
 def compile(drolstr, outfile): # Compile DROL code into C code
     # Beginning of C file
-    init = '#include <stdio.h>\n#include <stdlib.h>\nvoid main(void) {\n\tint regone = 0;\n\tint regtwo = 0;\n'
+    init = '#include <stdio.h>\n#include <stdlib.h>\nvoid main(void) {\n\tint regone = 0;\n\tint regtwo = 0;\n\tint tempone;\n\tint temptwo;\n'
     # End of C file
     end = '}\n'
     def lookup(char):
@@ -64,7 +64,7 @@ def compile(drolstr, outfile): # Compile DROL code into C code
         # Set register two to register two squared
         h = '\tregtwo = regtwo * regtwo;\n'
         # Swaps register one and register two
-        swap = '\tint tempone = regone;\n\tint temptwo = regtwo;\n\tregone = temptwo;\n\tregtwo = tempone;\n'
+        swap = '\ttempone = regone;\n\ttemptwo = regtwo;\n\tregone = temptwo;\n\tregtwo = tempone;\n'
         # Left shift register one by one
         lshftone = '\tregone = regone << 1;\n'
         # Left shift register two by one
