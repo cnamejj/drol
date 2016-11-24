@@ -60,7 +60,8 @@ a,b - Display character
 n,q - Set register to user input
 z,y - Set register to zero
 * - Swap the contents of the registers
-j - Test if registers are equal, if unequal, exit program
+j - If the registers are equal execute the next command
+w - While the registers are inequal execute the next command
 ! - Display newline
 0 - Do nothing
 x - Exit program successfully
