@@ -26,7 +26,8 @@ m = Set register one to the product of the registers
 r = Set register two to the product of the registers
 e = Set register one to register one squared
 h = Set register two to register two squared
-j = Tests if the registers are equal; If equal, the next command is executed; If not, the next command after that is executed
+j = Tests if the registers are equal; If equal, the next command is executed; If not, the next 
+	command after that is executed
 w = While the registers are not equal, the next three commands are executed
 * = Swaps register one and register two
 < = Left shift register one by one
@@ -53,7 +54,9 @@ CLI Flags:
 	-c : Compile into C source file named `a.c', but not into executable.
 
 Explanation:
-	DROL is a double virtual register language, and as such, contains two "registers" (integers of the `int' C type) that can be manipulated using different single-character commands. Each register has its own distinct set of commands.
+	DROL is a double virtual register language, and as such, contains two "registers" (integers 
+of the `int' C type) that can be manipulated using different single-character commands. Each 
+register has its own distinct set of commands.
 
 Notable Commands:
 	Some notable commands are:
