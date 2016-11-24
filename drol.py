@@ -189,7 +189,7 @@ def compile(drolstr, outfile): # Compile DROL code into C code
             drolitr.next()
             drolitr.next()
             drolitr.next()
-            dorlitr.next()
+            drolitr.next()
         else:
             outfile.write(lookup(char))
             location = location + 1
