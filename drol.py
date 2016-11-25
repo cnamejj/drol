@@ -2,7 +2,7 @@
 #file: drol.py
 #By: Bradley Sadowsky, MIT License <bradley.sadowsky@gmail.com>
 #11/23/2016
-#Current Version: 1.4
+#Current Version: 1.5
 #Updated on 11/24/16
 #Double Register Optimization Language (DROL) - Compiler
 from sys import argv
@@ -184,6 +184,8 @@ def compile(drolstr, outfile): # Compile DROL code into C code
                 drolitr.next()
             except StopIteration:
                 pass
+            except IndexError:
+                pass
         elif char == "w": # While the registers are not equal, the next command is executed
             code = '\twhile (regone != regtwo) {\n\t\t' + lookup(drolstr[location + 1]) + lookup(drolstr[location + 2]) + lookup(drolstr[location + 3]) + '\n\t}\n'
             outfile.write(code)
@@ -193,6 +195,8 @@ def compile(drolstr, outfile): # Compile DROL code into C code
                 drolitr.next()
                 drolitr.next()
             except StopIteration:
+                pass
+            except IndexError:
                 pass
         else:
             outfile.write(lookup(char))
