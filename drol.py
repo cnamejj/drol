@@ -2,7 +2,7 @@
 #file: drol.py
 #By: Bradley Sadowsky, MIT License <bradley.sadowsky@gmail.com>
 #11/23/2016
-#Current Version: 2.1
+#Current Version: 2.2
 #Updated on 5/20/17
 #Double Register Optimization Language (DROL) - Compiler
 from sys import argv
@@ -259,7 +259,7 @@ def compile(drol_string, outfile): # Compile DROL code into C code
             try:
                 subroutine_name = drol_string[location + 1] + drol_string[location + 2] + drol_string[location + 3] + drol_string[location + 4]
                 outfile.write(subroutine_name + '();\n')
-                location = location + 4
+                location = location + 5
                 i = 0
                 while i != 4:
                     drol_iter.next()
