@@ -2,7 +2,7 @@
 #file: drol.py
 #By: Bradley Sadowsky, MIT License <bradley.sadowsky@gmail.com>
 #11/23/2016
-#Current Version: 2.0
+#Current Version: 2.1
 #Updated on 5/20/17
 #Double Register Optimization Language (DROL) - Compiler
 from sys import argv
@@ -23,7 +23,7 @@ def compile(drol_string, outfile): # Compile DROL code into C code
         # Increment register one by 1
         i = 'regone = regone + 1;\n'
         # Increment register two by 1
-        k = 'tregtwo = regtwo + 1;\n'
+        k = 'regtwo = regtwo + 1;\n'
         # Decrement register one by 1
         d = 'regone = regone - 1;\n'
         # Decrement register two by 1
