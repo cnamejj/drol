@@ -2,93 +2,96 @@
 #file: drol.py
 #By: Bradley Sadowsky, MIT License <bradley.sadowsky@gmail.com>
 #11/23/2016
-#Current Version: 1.5
-#Updated on 11/24/16
+#Current Version: 2.0
+#Updated on 5/20/17
 #Double Register Optimization Language (DROL) - Compiler
 from sys import argv
 from os import system
-argl = len(argv)
+arg_length = len(argv)
 
-def compile(drolstr, outfile): # Compile DROL code into C code
+def compile(drol_string, outfile): # Compile DROL code into C code
+    drol_string = drol_string.replace(" ", "")
+    drol_string = drol_string.replace("\n", "")
+    drol_string = drol_string.replace("\t", "")
     # Beginning of C file
-    init = '#include <stdio.h>\n#include <stdlib.h>\nvoid main(void) {\n\tint regone = 0;\n\tint regtwo = 0;\n\tint tempone;\n\tint temptwo;\n'
+    init = '#include <stdio.h>\n#include <stdlib.h>\nvoid main(void) {\nint regone = 0;\nint regtwo = 0;\nint tempone;\nint temptwo;\n'
     # End of C file
     end = '}\n'
     def lookup(char):
         # Exit the program successfully
-        x = '\texit(0);\n'
+        x = 'exit(0);\n'
         # Increment register one by 1
-        i = '\tregone = regone + 1;\n'
+        i = 'regone = regone + 1;\n'
         # Increment register two by 1
-        k = '\tregtwo = regtwo + 1;\n'
+        k = 'tregtwo = regtwo + 1;\n'
         # Decrement register one by 1
-        d = '\tregone = regone - 1;\n'
+        d = 'regone = regone - 1;\n'
         # Decrement register two by 1
-        e = '\tregtwo = regtwo - 1;\n'
+        e = 'regtwo = regtwo - 1;\n'
         # Display register one to the screen
-        o = '\tprintf("%d", regone);\n'
+        o = 'printf("%d", regone);\n'
         # Display register two to the screen
-        p = '\tprintf("%d", regtwo);\n'
+        p = 'printf("%d", regtwo);\n'
         # Display register one to the screen IF REGISTER ONE IS ASCII (0-255)
-        a = '\tif (regone >= 0 && regone <= 255) {\n\t\tprintf("%c", regone);\n\t}\n'
+        a = 'if (regone >= 0 && regone <= 255) {\nprintf("%c", regone);\n}\n'
         # Display register two to the screen IF REGISTER ONE IS ASCII (0-255)
-        b = '\tif (regtwo >= 0 && regtwo <= 255) {\n\t\tprintf("%c", regtwo);\n\t}\n'
+        b = 'if (regtwo >= 0 && regtwo <= 255) {\nprintf("%c", regtwo);\n}\n'
         # Display newline
-        newline = '\tprintf("\\n");\n'
+        newline = 'printf("\\n");\n'
         # Set register one to user inputted number
-        n = '\tscanf("%d", &regone);\n'
+        n = 'scanf("%d", &regone);\n'
         # Set register two to user inputted number
-        q = '\tscanf("%d", &regtwo);\n'
+        q = 'scanf("%d", &regtwo);\n'
         # Set register one to zero
-        z = '\tregone = 0;\n'
+        z = 'regone = 0;\n'
         # Set register two to zero
-        y = '\tregtwo = 0;\n'
+        y = 'regtwo = 0;\n'
         # Set both registers to the contents of register one
-        one = '\tregtwo = regone;\n'
+        one = 'regtwo = regone;\n'
         # Set both registers to the contents of register two
-        two = '\tregone = regtwo;\n'
+        two = 'regone = regtwo;\n'
         # Set register one to the sum of the registers
-        s = '\tregone = regone + regtwo;\n'
+        s = 'regone = regone + regtwo;\n'
         # Set register two to the sum of the registers
-        u = '\tregtwo = regone + regtwo;\n'
+        u = 'regtwo = regone + regtwo;\n'
         # Set register one to the difference of the registers
-        f = '\tregone = regone - regtwo;\n'
+        f = 'regone = regone - regtwo;\n'
         # Set register two to the difference of the registers
-        g = '\tregtwo = regone - regtwo;\n'
+        g = 'regtwo = regone - regtwo;\n'
         # Set register one to the product of the registers
-        m = '\tregone = regone * regtwo;\n'
+        m = 'regone = regone * regtwo;\n'
         # Set register two to the product of the registers
-        r = '\tregtwo = regone * regtwo;\n'
+        r = 'regtwo = regone * regtwo;\n'
         # Set register one to register one squared
-        l = '\tregone = regone * regone;\n'
+        l = 'regone = regone * regone;\n'
         # Set register two to register two squared
-        h = '\tregtwo = regtwo * regtwo;\n'
+        h = 'regtwo = regtwo * regtwo;\n'
         # Swaps register one and register two
-        swap = '\ttempone = regone;\n\ttemptwo = regtwo;\n\tregone = temptwo;\n\tregtwo = tempone;\n'
+        swap = 'tempone = regone;\ntemptwo = regtwo;\nregone = temptwo;\nregtwo = tempone;\n'
         # Left shift register one by one
-        lshftone = '\tregone = regone << 1;\n'
+        lshftone = 'regone = regone << 1;\n'
         # Left shift register two by one
-        lshfttwo = '\tregtwo = regtwo << 1;\n'
+        lshfttwo = 'regtwo = regtwo << 1;\n'
         # Right shift register one by one
-        rshftone = '\tregone = regone >> 1;\n'
+        rshftone = 'regone = regone >> 1;\n'
         # Right shift register two by one
-        rshfttwo = '\tregtwo = regtwo >> 1;\n'
+        rshfttwo = 'regtwo = regtwo >> 1;\n'
         # Flip bits in register one
-        flipone = '\tregone = ~regone;\n'
+        flipone = 'regone = ~regone;\n'
         # Flip bits in register two
-        fliptwo = '\tregtwo = ~regtwo;\n'
+        fliptwo = 'regtwo = ~regtwo;\n'
         # XOR register one to register two
-        xorone = '\tregone = regone ^ regtwo;\n'
+        xorone = 'regone = regone ^ regtwo;\n'
         # XOR register two to register one
-        xortwo = '\tregtwo = regone ^ regone;\n'
+        xortwo = 'regtwo = regone ^ regone;\n'
         # OR register one to register two
-        orone = '\tregone = regone | regtwo;\n'
+        orone = 'regone = regone | regtwo;\n'
         # OR register two to register one
-        ortwo = '\tregtwo = regone | regtwo;\n'
+        ortwo = 'regtwo = regone | regtwo;\n'
         # AND register one to register two
-        andone = '\tregone = regone & regtwo;\n'
+        andone = 'regone = regone & regtwo;\n'
         # AND register two to register one
-        andtwo = '\tregtwo = regone & regtwo;\n'
+        andtwo = 'regtwo = regone & regtwo;\n'
         
         if char == "x":
             return x
@@ -170,30 +173,97 @@ def compile(drolstr, outfile): # Compile DROL code into C code
             return ""
     
     outfile.write(init)
-    drolitr = iter(drolstr.lower())
+    drol_iter = iter(drol_string.lower())
     location = 0
-    for char in drolitr:
-        if char == "j": # If registers are equal execute next command, else skip
+    for char in drol_iter:
+        if char == "j" or char == '"': # If registers are equal (j) or registers are not equal ("), execute next x commands, else skip
             try:
-                code = '\tif (regone == regtwo) {\n\t\t' + lookup(drolstr[location + 1]) + lookup(drolstr[location + 2]) + '\n\t} else {\n\t\t' + lookup(drolstr[location + 3]) + lookup(drolstr[location + 4]) + '\n\t}\n'
-                outfile.write(code)
-                location = location + 5
-                drolitr.next()
-                drolitr.next()
-                drolitr.next()
-                drolitr.next()
+                block_length = drol_string[location + 1] + drol_string[location + 2] + drol_string[location + 3] + drol_string[location + 4]
+                if block_length.isdigit() == False:
+                    from sys import exit
+                    exit("drol.py: LoopError: missing loop length declaration")
+                block_length = int(block_length)
+                if char == "j":
+                    outfile.write('if (regone == regtwo) {\n')
+                elif char == '"':
+                    outfile.write('if (regone != regtwo) {\n')
+                i = 0
+                j = 1
+                while i != block_length:
+                    outfile.write(lookup(drol_string[location + j + 4]))
+                    i = i + 1
+                    j = j + 1
+                outfile.write('\n}\n')
+                location = location + block_length + 5
+                i = 0
+                while i != block_length + 4:
+                    drol_iter.next()
+                    i = i + 1
             except StopIteration:
                 pass
             except IndexError:
                 pass
-        elif char == "w": # While the registers are not equal, the next command is executed
+        elif char == "w" or char == "'": # While the registers are equal (w) or the registers are not equal ('), the next x commands are executed
             try:
-                code = '\twhile (regone != regtwo) {\n\t\t' + lookup(drolstr[location + 1]) + lookup(drolstr[location + 2]) + lookup(drolstr[location + 3]) + '\n\t}\n'
-                outfile.write(code)
+                if char == "w":
+                    outfile.write('while (regone == regtwo) {\n')
+                elif char == "'":
+                    outfile.write('while (regone != regtwo) {\n')
+                block_length = drol_string[location + 1] + drol_string[location + 2] + drol_string[location + 3] + drol_string[location + 4]
+                if block_length.isdigit() == False:
+                    from sys import exit
+                    exit("drol.py: LoopError: missing loop length declaration")
+                block_length = int(block_length)
+                i = 0
+                j = 1
+                while i != block_length:
+                    outfile.write(lookup(drol_string[location + j + 4]))
+                    i = i + 1
+                    j = j + 1
+                outfile.write('\n}\n')
+                location = location + block_length + 5
+                i = 0
+                while i != block_length + 4:
+                    drol_iter.next()
+                    i = i + 1
+            except StopIteration:
+                pass
+            except IndexError:
+                pass
+        elif char == ":": # Subroutine declaration
+            try:
+                block_length = drol_string[location + 1] + drol_string[location + 2] + drol_string[location + 3] + drol_string[location + 4]
+                if block_length.isdigit() == False:
+                    from sys import exit
+                    exit("drol.py: SubroutineError: missing function length declaration")
+                block_length = int(block_length)
+                subroutine_name = drol_string[location + 5] + drol_string[location + 6] + drol_string[location + 7] + drol_string[location + 8]
+                outfile.write('void ' + subroutine_name + '(void) {\n')
+                i = 0
+                j = 1
+                while i != block_length:
+                    outfile.write(lookup(drol_string[location + j + 8]))
+                    i = i + 1
+                    j = j + 1
+                outfile.write('\n}\n')
+                location = location + block_length + 9
+                i = 0
+                while i != block_length + 8:
+                    drol_iter.next()
+                    i = i + 1
+            except StopIteration:
+                pass
+            except IndexError:
+                pass
+        elif char == ";": # Subroutine call
+            try:
+                subroutine_name = drol_string[location + 1] + drol_string[location + 2] + drol_string[location + 3] + drol_string[location + 4]
+                outfile.write(subroutine_name + '();\n')
                 location = location + 4
-                drolitr.next()
-                drolitr.next()
-                drolitr.next()
+                i = 0
+                while i != 4:
+                    drol_iter.next()
+                    i = i + 1
             except StopIteration:
                 pass
             except IndexError:
@@ -218,11 +288,11 @@ def main(argnum = 1):
     inptfile.close()
     outfile.close()
 
-if argl == 2: # Take second CLI argument as DROL source file
+if arg_length == 2: # Take second CLI argument as DROL source file
     main()
     system("gcc a.c") # Default C compiler selected as GCC
     system("rm a.c")
-elif argl == 3: # Take single CLI flag
+elif arg_length == 3: # Take single CLI flag
     if argv[1] == "-c": # Just compile to C code
         main(2)
     else:

@@ -1,4 +1,4 @@
-DROL Documentation - 11/23/2016 (Updated: 11/24/16)
+DROL Documentation - 11/23/2016 (Updated: 5/20/17)
 Written by Bradley Sadowsky, MIT License <bradley.sadowsky@gmail.com>
 
 x = Exit program successfully
@@ -26,9 +26,10 @@ m = Set register one to the product of the registers
 r = Set register two to the product of the registers
 e = Set register one to register one squared
 h = Set register two to register two squared
-j = Tests if the registers are equal; If equal, the next two commands are executed; If not, the 
-	next two commands after that is executed
-w = While the registers are not equal, the next three commands are executed (as a loop)
+j = Tests if the registers are equal; If equal, the next X commands are executed (specified by a 4 digit number immediately afterwards)
+" = Tests if the registers are equal; If not equal, the next X commands are executed (specified by a 4 digit number immediately afterwards)
+w = While the registers are equal, the next X commands (specified by a 4 digit number immediately afterwards) are executed (as a loop)
+' = While the registers are not equal, the next X commands (specified by a 4 digit number immediately afterwards) are executed (as a loop)
 * = Swaps register one and register two
 < = Left shift register one by one
 , = Left shift register two by one
@@ -42,6 +43,12 @@ w = While the registers are not equal, the next three commands are executed (as 
 \ = OR register two to register one (r2 = r1 | r2)
 & = AND register one to register two (r1 = r1 & r2)
 7 = AND register two to register one (r1 = r1 & r2)
+: = Declare a subroutine in the following format
+	: XXXX YYYY
+	where XXXX represents the amount of commands in the subroutine, and YYYY represents the name of the subroutine
+; = Call a subroutine in the following format
+	; XXXX
+	where XXXX represents the name of the subroutine to be called
 
 Description:
 	DROL (Double Register Optimization Language) is a virtual register language, and acts by 
@@ -59,22 +66,24 @@ of the `int' C type) that can be manipulated using different single-character co
 register has its own distinct set of commands.
 
 Notable Commands:
-	Some notable commands are:
-i,k - Increment
-d,e - Decrement
-o,p - Display number
-a,b - Display character
-n,q - Set register to user input
-z,y - Set register to zero
-* - Swap the contents of the registers
-j - If the registers are equal execute the next two commands, if not execute the two commands after 
-	that one
-w - While the registers are inequal execute the next three commands (in a loop)
-! - Display newline
-0 - Do nothing
-x - Exit program successfully
+	Some notable commands are: 
+i,k - Increment 
+d,e - Decrement 
+o,p - Display number 
+a,b - Display character 
+n,q - Set register to user input 
+z,y - Set register to zero 
+*   - Swap the contents of the registers 
+j," - If the registers are equal/not equal execute the next X commands 
+w,' - While the registers are equal/not equal execute the next X commands (in a loop) 
+!   - Display newline 
+0   - Do nothing 
+x   - Exit program successfully
+:   - Declare a subroutine
+;   - Call a subroutine
 
 Common pitfalls:
-	1. Both the four/three (respectively) commands immediately after `j' and `w' cannot be `j' or `w'.
-	2. The four commands after `j' are reserved. Similarly, the three commands after `w' are reserved.
+	1. The commands inside of a while loop, if loop, or subroutine declaration cannot be a while loop, if loop, subroutine declaration, or subroutine call
+	2. The block length and subroutine names are reserved, meaning that after an if loop, while loop, or subroutine call there are 4 reserved spaces, and after a subroutine 
+declaration, there is 8 reserved spaces
 	3. The `!' command exists for a reason: use it! (Why set your registers to 10 to display a newline when you don't have to?)
