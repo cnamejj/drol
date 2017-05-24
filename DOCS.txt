@@ -1,6 +1,6 @@
 DROL Documentation - 11/23/2016 (Updated: 5/23/17)
 Written by Bradley Sadowsky, MIT License <bradley.sadowsky@gmail.com>
-Current DROL Version: 3.0
+Current DROL Version: 3.0.0
 
 x = Exit program successfully
 0 = Do nothing
