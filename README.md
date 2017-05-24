@@ -1,3 +1,4 @@
 # drol
-DROL (Double Register Optimization Language), Written by Bradley Sadowsky <bradley.sadowsky@gmail.com> - Includes compiler and such<br />
-To see documentation and command reference check `DOCS.txt`
+DROL (Double Register Optimization Language), Copyright Bradley Sadowsky, May 201 - MIT License<br />
+Includes compiler, man page, README, documentation, and License.<br />
+To see documentation and command reference check `DOCS.txt`<br />

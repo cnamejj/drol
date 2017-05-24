@@ -1,5 +1,6 @@
-DROL Documentation - 11/23/2016 (Updated: 5/20/17)
+DROL Documentation - 11/23/2016 (Updated: 5/23/17)
 Written by Bradley Sadowsky, MIT License <bradley.sadowsky@gmail.com>
+Current DROL Version: 3.0
 
 x = Exit program successfully
 0 = Do nothing
@@ -26,10 +27,14 @@ m = Set register one to the product of the registers
 r = Set register two to the product of the registers
 e = Set register one to register one squared
 h = Set register two to register two squared
-j = Tests if the registers are equal; If equal, the next X commands are executed (specified by a 4 digit number immediately afterwards)
-" = Tests if the registers are equal; If not equal, the next X commands are executed (specified by a 4 digit number immediately afterwards)
-w = While the registers are equal, the next X commands (specified by a 4 digit number immediately afterwards) are executed (as a loop)
-' = While the registers are not equal, the next X commands (specified by a 4 digit number immediately afterwards) are executed (as a loop)
+j = If statement following j XX YYYY where XX is == (equal), != (not equal), >= (greater than or equal two), <= (less than or equal two), >> (greater than), << (less than) and YYYY is 
+	the amount of commands following to be executed
+" = If statement following " XX YYYYYYYY where XX is == (equal), != (not equal), >= (greater than or equal two), <= (less than or equal two), >> (greater than), << (less than) and 
+	YYYYYYYY is the amount of commands following to be executed
+w = While statement following j XX YYYY where XX is == (equal), != (not equal), >= (greater than or equal two), <= (less than or equal two), >> (greater than), << (less than) and YYYY 
+	is the amount of commands following to be executed
+' = While statement following " XX YYYYYYYY where XX is == (equal), != (not equal), >= (greater than or equal two), <= (less than or equal two), >> (greater than), << (less than) and 
+	YYYYYYYY is the amount of commands following to be executed
 * = Swaps register one and register two
 < = Left shift register one by one
 , = Left shift register two by one
@@ -43,12 +48,26 @@ w = While the registers are equal, the next X commands (specified by a 4 digit n
 \ = OR register two to register one (r2 = r1 | r2)
 & = AND register one to register two (r1 = r1 & r2)
 7 = AND register two to register one (r1 = r1 & r2)
-: = Declare a subroutine in the following format
+: = Declares a subroutine in the following format
 	: XXXX YYYY
 	where XXXX represents the amount of commands in the subroutine, and YYYY represents the name of the subroutine
+( = Declares a subroutine in the following format
+	( XXXXXXXX YYYYYYYY
+	where XXXXXXXX represents the amount of commands in the subroutine, and YYYYYYYY represents the name of the subroutine
 ; = Call a subroutine in the following format
 	; XXXX
 	where XXXX represents the name of the subroutine to be called
+) = Call a subroutine in the following format
+	) XXXXXXXX
+	where XXXXXXXX represents the name of the subroutine to be called
+@ = Forever Loop in the following format
+	@ XXXX
+	where XXXX represents the amount of commands to be executed in the loop
+# = Forever Loop in the following format
+	# XXXXXXXX
+	where XXXXXXXX represents the amount of commands to be executed in the loop
+{ = Begin comments
+} = End comments
 
 Description:
 	DROL (Double Register Optimization Language) is a virtual register language, and acts by 
@@ -66,7 +85,7 @@ of the `int' C type) that can be manipulated using different single-character co
 register has its own distinct set of commands.
 
 Notable Commands:
-	Some notable commands are: 
+	Some notable commands are:
 i,k - Increment 
 d,e - Decrement 
 o,p - Display number 
@@ -74,16 +93,36 @@ a,b - Display character
 n,q - Set register to user input 
 z,y - Set register to zero 
 *   - Swap the contents of the registers 
-j," - If the registers are equal/not equal execute the next X commands 
-w,' - While the registers are equal/not equal execute the next X commands (in a loop) 
+j," - If the registers are equal/not equal, etc execute the next X commands 
+w,' - While the registers are equal/not equal, etc execute the next X commands (in a loop) 
 !   - Display newline 
 0   - Do nothing 
 x   - Exit program successfully
 :   - Declare a subroutine
 ;   - Call a subroutine
+@,# - Forever loop, an unconditional
+{,} - Begins and ends comments
+
+Extended Commands:
+	The premise of extended commands is one based in space saving - having two commands instead of one
+allows for there to be less wasted space. Consider the following standard if loop:
+	j == 0031
+which tells the computer to execute the next 31 commands if the two registers are equal... This loop length
+declaration is limited to a maximum of 9999, however. Instead of extending this (by doubling it), which for
+the majority of loops, be unnecessary and a waste of space, we extended the command from j to ", which has
+the same comparison operator, however it has up to 99999999 commands in the loop, for specifically loops 
+longer than 9999. Note that for the subroutine command, both the length declaration and the function name
+has been extended. Here is a table of all the extended commands:
+	TYPE		COMMAND	EXTENSION
+	If Loop		j	"
+	While Loop	w	'
+	Forever Loop	@	#
+	Subroutine	:	(
+	Call		;	)
 
 Common pitfalls:
-	1. The commands inside of a while loop, if loop, or subroutine declaration cannot be a while loop, if loop, subroutine declaration, or subroutine call
-	2. The block length and subroutine names are reserved, meaning that after an if loop, while loop, or subroutine call there are 4 reserved spaces, and after a subroutine 
-declaration, there is 8 reserved spaces
+	1. The block length and subroutine names are reserved, meaning that after an if loop or while loop, 
+there is 6 reserved spaces (10 for extended); after the forever loop or subroutine call there are 4 reserved 
+spaces (8 for extended), and after a subroutine declaration, there is 8 reserved spaces (16 for extended).
+
 	3. The `!' command exists for a reason: use it! (Why set your registers to 10 to display a newline when you don't have to?)
