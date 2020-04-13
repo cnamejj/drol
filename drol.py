@@ -265,7 +265,7 @@ def compile(drol_string, outfile, header = 1): # Compile DROL code into C code
                     outfile.write('}\n')
                 else:
                     code = code + compile(mini_block, outfile, 0)
-                    outfile.write('}\n')
+                    code = code + '}\n'
                 location = location + block_length + header_length + 1
                 i = 0
                 while i != block_length + header_length:
